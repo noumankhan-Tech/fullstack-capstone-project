@@ -1,0 +1,14 @@
+const express = require('express');
+const cors = require('cors');
+const giftRoutes = require('./routes/giftRoutes');
+const searchRoutes = require('./routes/searchRoutes');
+const { connectToDatabase } = require('../db');
+const app = express();
+app.use(cors());
+app.use(express.json());
+connectToDatabase();
+app.use('/', giftRoutes);
+app.use('/', searchRoutes);
+app.get('/', (req, res) => { res.send('Inside the server'); });
+app.listen(3060, () => { console.log('Server running'); });
+module.exports = app;
